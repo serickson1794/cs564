@@ -4,9 +4,37 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Business Reviews</title>
+
+<link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
 </head>
 <body>
-<h1>Yelp</h1>
+<div class="header">
+	<span class="headerTitleLeft">business</span>
+	<span class="headerTitleRight">reviews</span>
+</div>
+<div class="body">
+	<div class="metroAreaCard">
+		<div class="metroAreaCardTitle">
+			Madison
+		</div>
+		<div class="metroAreaCardInner" style="background-image: url('http://images.midwestliving.mdpcdn.com/sites/midwestliving.com/files/styles/large/public/101170660_1w.jpg?itok=w6j2uzsd');">
+			<a class="metroAreaLink" href="">
+				
+			</a>
+		</div>
+	</div>
+	
+	<div class="metroAreaCard">
+		<div class="metroAreaCardTitle">
+			Las Vegas
+		</div>
+		<div class="metroAreaCardInner" style="background-image: url('http://www.todayifoundout.com/wp-content/uploads/2014/07/las-vegas.jpg');">
+			<a class="metroAreaLink" href="">
+				
+			</a>
+		</div>
+	</div>
+</div>
 </body>
 </html>
