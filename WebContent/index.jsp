@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,6 +15,15 @@
 	<span class="headerTitleRight">reviews</span>
 </div>
 <div class="body">
+	<%
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		String url ="jdbc:mysql://yelpmysql.mysql.database.azure.com:3306/yelp_db?useSSL=true&requireSSL=false";
+		Connection myDbConn = DriverManager.getConnection(url, "cs564@yelpmysql", "1979milkyway!");
+	} catch (Exception e) {
+		out.println("Could not connect to database. " + e.getMessage());
+	}
+	%>
 	<div class="metroAreaCard">
 		<div class="metroAreaCardTitle">
 			Madison
