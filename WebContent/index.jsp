@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="writers.HtmlWriter" %>
+<%@ page import="database.MySqlConnection" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,9 +19,7 @@
 <div class="body">
 	<%
 	try {
-		Class.forName("com.mysql.jdbc.Driver");
-		String url ="jdbc:mysql://yelpmysql.mysql.database.azure.com:3306/yelp_db?useSSL=true&requireSSL=false";
-		Connection conn = DriverManager.getConnection(url, "cs564@yelpmysql", "1979milkyway!");
+		Connection conn = MySqlConnection.getConnection();
 		Statement stmt = conn.createStatement();
 		ResultSet metroAreas = stmt.executeQuery("SELECT * FROM metro_areas ORDER BY name");
 		
@@ -32,7 +31,7 @@
 			
 			htmlWriter.printOpenTag("div", "metroAreaCard");
 			htmlWriter.printOpenTag("div", "metroAreaCardTitle");
-			htmlWriter.print(metroAreaName);
+			htmlWriter.println(metroAreaName);
 			htmlWriter.printCloseTag("div");
 			String imageStyle = "background-image: url('" + metroAreaImageUrl + "');";
 			htmlWriter.printOpenTag("div", "metroAreaCardInner", imageStyle);
@@ -45,7 +44,9 @@
 		metroAreas.close();
 		stmt.close();
 		conn.close();
-	} catch (Exception e) {
+	} catch (ClassNotFoundException cnfe) {
+		response.sendRedirect("error.jsp");
+	} catch (SQLException se) {
 		response.sendRedirect("error.jsp");
 	}
 	%>
