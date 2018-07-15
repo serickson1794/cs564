@@ -24,7 +24,7 @@
 	try {
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
-		metroAreas = stmt.executeQuery("SELECT * FROM metro_areas ORDER BY name");
+		metroAreas = stmt.executeQuery("SELECT * FROM metro_area ORDER BY name");
 		
 		HtmlWriter htmlWriter = new HtmlWriter(out);
 		while (metroAreas.next()) {

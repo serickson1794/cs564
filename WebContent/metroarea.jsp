@@ -26,7 +26,7 @@
 		stmt = conn.createStatement();
 		
 		String metroAreaId = request.getParameter("id");
-		String query = "SELECT name from metro_areas WHERE id = " + metroAreaId;
+		String query = "SELECT name from metro_area WHERE id = " + metroAreaId;
 		metroArea = stmt.executeQuery(query);
 		metroArea.first();
 		String metroAreaName = metroArea.getString("name");
