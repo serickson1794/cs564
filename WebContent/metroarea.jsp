@@ -21,6 +21,7 @@
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet metroArea = null;
+	ResultSet postalCodes = null;
 	try {
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
@@ -35,11 +36,21 @@
 		htmlWriter.printOpenTag("h1");
 		htmlWriter.println(metroAreaName);
 		htmlWriter.printCloseTag("h1");
+		
+		htmlWriter.printOpenTag("h2");
+		htmlWriter.println("Postal Codes");
+		htmlWriter.printCloseTag("h2");
+		query = "SELECT postal_code FROM postal_code WHERE metro_area_id = " + metroAreaId;
+		postalCodes = stmt.executeQuery(query);
+		while (postalCodes.next()) {
+			htmlWriter.println(postalCodes.getString("postal_code"));
+		}
 	} catch (ClassNotFoundException cnfe) {
 		response.sendRedirect("error.jsp");
 	} catch (SQLException se) {
 		response.sendRedirect("error.jsp");
 	} finally {
+		if (postalCodes != null) postalCodes.close();
 		if (metroArea != null) metroArea.close();
 		if (stmt != null) stmt.close();
 		if (conn != null) conn.close();
