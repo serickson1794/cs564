@@ -18,13 +18,16 @@
 </div>
 <div class="body">
 	<%
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet metroArea = null;
 	try {
-		Connection conn = MySqlConnection.getConnection();
-		Statement stmt = conn.createStatement();
+		conn = MySqlConnection.getConnection();
+		stmt = conn.createStatement();
 		
 		String metroAreaId = request.getParameter("id");
 		String query = "SELECT name from metro_areas WHERE id = " + metroAreaId;
-		ResultSet metroArea = stmt.executeQuery(query);
+		metroArea = stmt.executeQuery(query);
 		metroArea.first();
 		String metroAreaName = metroArea.getString("name");
 		
@@ -32,14 +35,14 @@
 		htmlWriter.printOpenTag("h1");
 		htmlWriter.println(metroAreaName);
 		htmlWriter.printCloseTag("h1");
-		
-		metroArea.close();
-		stmt.close();
-		conn.close();
 	} catch (ClassNotFoundException cnfe) {
 		response.sendRedirect("error.jsp");
 	} catch (SQLException se) {
 		response.sendRedirect("error.jsp");
+	} finally {
+		if (metroArea != null) metroArea.close();
+		if (stmt != null) stmt.close();
+		if (conn != null) conn.close();
 	}
 	%>
 </div>

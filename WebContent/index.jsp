@@ -18,10 +18,13 @@
 </div>
 <div class="body">
 	<%
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet metroAreas = null;
 	try {
-		Connection conn = MySqlConnection.getConnection();
-		Statement stmt = conn.createStatement();
-		ResultSet metroAreas = stmt.executeQuery("SELECT * FROM metro_areas ORDER BY name");
+		conn = MySqlConnection.getConnection();
+		stmt = conn.createStatement();
+		metroAreas = stmt.executeQuery("SELECT * FROM metro_areas ORDER BY name");
 		
 		HtmlWriter htmlWriter = new HtmlWriter(out);
 		while (metroAreas.next()) {
@@ -40,14 +43,14 @@
 			htmlWriter.printCloseTag("div");
 			htmlWriter.printCloseTag("div");
 		}
-		
-		metroAreas.close();
-		stmt.close();
-		conn.close();
 	} catch (ClassNotFoundException cnfe) {
 		response.sendRedirect("error.jsp");
 	} catch (SQLException se) {
 		response.sendRedirect("error.jsp");
+	} finally {
+		if (metroAreas != null) metroAreas.close();
+		if (stmt != null) stmt.close();
+		if (conn != null) conn.close();
 	}
 	%>
 </div>
