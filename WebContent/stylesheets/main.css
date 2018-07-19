@@ -6,7 +6,7 @@ div.header {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 100%;
+	width: calc(100% - 20px);
 	height: 30px;
 	padding: 10px 10px 10px 10px;
 	background-color: whitesmoke;
@@ -15,19 +15,26 @@ div.header {
 div.header > span.headerTitleLeft {
 	color: teal;
 	font: bold 30px sans-serif;
+	flex-grow: 2;
 }
 
 div.header > span.headerTitleRight {
 	color: black;
 	font: bold 30px sans-serif;
+	flex-grow: 1;
 }
 
 div.body {
 	position: absolute;
 	top: 50px;
 	left: 0px;
-	width: 100%;
-	padding: 10px 10px 10px 10px;
+	width: initial;
+	margin: 10px 10px 10px 10px;
+}
+
+div.bodyFlex {
+	display: flex;
+	flex-direction: column;
 }
 
 div.metroAreaCard {
@@ -65,4 +72,45 @@ a.metroAreaLink {
 	display: block;
 	width: 100%;
 	height: 100%;
+}
+
+div.pageTitle, div.columnTitle {
+	background-color: white;
+	text-align: center;
+	vertical-align: middle;
+	flex-grow: 2;
+}
+
+div.pageTitle > h1 {
+	color: teal;
+	font: bold 24px sans-serif;
+}
+
+div.columnTitle > h2 {
+	color: teal;
+	font: bold 20px sans-serif;
+}
+
+div.columnContainer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	flex-grow: 1;
+}
+
+div.column {
+	flex-grow: 1;
+}
+
+div.leftColumn {
+	margin-right: 5px;
+}
+
+div.centerColumn {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+div.rightColumn {
+	margin-left: 5px;
 }

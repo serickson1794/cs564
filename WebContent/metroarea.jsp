@@ -21,7 +21,8 @@
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet metroArea = null;
-	ResultSet postalCodes = null;
+	ResultSet businesses = null;
+	ResultSet category = null;
 	try {
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
@@ -33,24 +34,53 @@
 		String metroAreaName = metroArea.getString("name");
 		
 		HtmlWriter htmlWriter = new HtmlWriter(out);
+		htmlWriter.printOpenTag("div", "pageTitle");
 		htmlWriter.printOpenTag("h1");
 		htmlWriter.println(metroAreaName);
 		htmlWriter.printCloseTag("h1");
+		htmlWriter.printCloseTag("div");
 		
-		htmlWriter.printOpenTag("h2");
-		htmlWriter.println("Postal Codes");
-		htmlWriter.printCloseTag("h2");
-		query = "SELECT postal_code FROM postal_code WHERE metro_area_id = " + metroAreaId;
-		postalCodes = stmt.executeQuery(query);
-		while (postalCodes.next()) {
-			htmlWriter.println(postalCodes.getString("postal_code"));
+		htmlWriter.printOpenTag("div", "columnContainer");
+		for (int col = 1; col <= 3; col++) {
+			query = "SELECT category FROM category WHERE id = " + col; // 1 = restaurants, 2 = apartments, 3 = car dealers
+			category = stmt.executeQuery(query);
+			category.next();
+			String categoryName = category.getString("category");
+			
+			if (col == 1) htmlWriter.printOpenTag("div", "column leftColumn");
+			else if (col == 2) htmlWriter.printOpenTag("div", "column centerColumn");
+			else if (col == 3) htmlWriter.printOpenTag("div", "column rightColumn");
+			htmlWriter.printOpenTag("div", "columnTitle");
+			htmlWriter.printOpenTag("h2");
+			htmlWriter.print(categoryName);
+			htmlWriter.printCloseTag("h2");
+			htmlWriter.printCloseTag("div");
+			query = "SELECT business.id, business.name, COUNT(review.id) AS review_count, AVG(review.stars) AS review_stars"
+					+ " FROM business"
+					+ " INNER JOIN postal_code ON business.postal_code = postal_code.postal_code"
+					+ " INNER JOIN review ON business.id = review.business_id"
+					+ " WHERE postal_code.metro_area_id = " + metroAreaId
+						+ " AND business.category_id = " + col
+						+ " AND business.is_open = 1"
+					+ " GROUP BY business.id, review.stars"
+					+ " ORDER BY review_stars DESC, review_count DESC"
+					+ " LIMIT 5";
+			businesses = stmt.executeQuery(query);
+			while (businesses.next()) {
+				htmlWriter.println(businesses.getString("name"));
+				htmlWriter.println(businesses.getString("review_count") + " reviews");
+				htmlWriter.println(businesses.getString("review_stars") + " stars");
+			}
+			htmlWriter.printCloseTag("div");
 		}
+		htmlWriter.printCloseTag("div");
 	} catch (ClassNotFoundException cnfe) {
 		response.sendRedirect("error.jsp");
 	} catch (SQLException se) {
 		response.sendRedirect("error.jsp");
 	} finally {
-		if (postalCodes != null) postalCodes.close();
+		if (category != null) category.close();
+		if (businesses != null) businesses.close();
 		if (metroArea != null) metroArea.close();
 		if (stmt != null) stmt.close();
 		if (conn != null) conn.close();
