@@ -67,9 +67,30 @@
 					+ " LIMIT 5";
 			businesses = stmt.executeQuery(query);
 			while (businesses.next()) {
+				htmlWriter.printOpenTag("div", "columnCard");
+				htmlWriter.printOpenTag("div", "cardDetailLeft");
+				
+				htmlWriter.printOpenTag("div", "cardDetailRow");
 				htmlWriter.println(businesses.getString("name"));
+				htmlWriter.printCloseTag("div");
+				
+				htmlWriter.printCloseTag("div");
+				htmlWriter.printOpenTag("div", "cardDetailRight");
+				
+				htmlWriter.printOpenTag("div", "cardDetailRow");
+				int scale = (int) Math.pow(10, 1);
+				Double stars = (double) Math.round(businesses.getDouble("review_stars") * scale) / scale;
+				htmlWriter.println(stars.toString());
+				htmlWriter.printImage("images/star.jpg", "20px", "20px");
+				htmlWriter.printImage("images/halfstar.jpg", "20px", "20px");
+				htmlWriter.printCloseTag("div");
+				
+				htmlWriter.printOpenTag("div", "cardDetailRow");
 				htmlWriter.println(businesses.getString("review_count") + " reviews");
-				htmlWriter.println(businesses.getString("review_stars") + " stars");
+				htmlWriter.printCloseTag("div");
+				
+				htmlWriter.printCloseTag("div");
+				htmlWriter.printCloseTag("div");
 			}
 			htmlWriter.printCloseTag("div");
 		}

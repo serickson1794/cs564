@@ -28,7 +28,7 @@ div.body {
 	position: absolute;
 	top: 50px;
 	left: 0px;
-	width: initial;
+	width: calc(100% - 20px);
 	margin: 10px 10px 10px 10px;
 }
 
@@ -99,7 +99,10 @@ div.columnContainer {
 }
 
 div.column {
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
+	width: 0px;
 }
 
 div.leftColumn {
@@ -113,4 +116,31 @@ div.centerColumn {
 
 div.rightColumn {
 	margin-left: 5px;
+}
+
+div.columnCard {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	flex-grow: 1;
+	background-color: white;
+	padding: 10px 10px 10px 10px;
+	margin-top: 10px;
+}
+
+div.cardDetailLeft {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+div.cardDetailRight {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	text-align: right;
+}
+
+div.cardDetailRow {
+	flex-grow: 1;
 }

@@ -69,6 +69,19 @@ public class HtmlWriter {
 		}
 	}
 	
+	public void printImage(String src, String width, String height) throws IOException {
+		try {
+			String str = "<img ";
+			str += tagAttribute("src", src);
+			str += tagAttribute("width", width);
+			str += tagAttribute("height", height);
+			str += " />";
+			jspWriter.println(str);
+		} catch (IOException ioe) {
+			throw ioe;
+		}
+	}
+	
 	public void print(String text) throws IOException {
 		try {
 			jspWriter.print(text);
