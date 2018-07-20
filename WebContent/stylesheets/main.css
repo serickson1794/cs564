@@ -28,7 +28,7 @@ div.body {
 	position: absolute;
 	top: 50px;
 	left: 0px;
-	width: initial;
+	width: calc(100% - 20px);
 	margin: 10px 10px 10px 10px;
 }
 
@@ -87,7 +87,7 @@ div.pageTitle > h1 {
 }
 
 div.columnTitle > h2 {
-	color: teal;
+	color: black;
 	font: bold 20px sans-serif;
 }
 
@@ -99,7 +99,10 @@ div.columnContainer {
 }
 
 div.column {
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
+	width: 0px;
 }
 
 div.leftColumn {
@@ -113,4 +116,41 @@ div.centerColumn {
 
 div.rightColumn {
 	margin-left: 5px;
+}
+
+div.columnCard {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	flex-grow: 1;
+	background-color: white;
+	padding: 10px 10px 10px 10px;
+	margin-top: 10px;
+	font: 16px sans-serif;
+}
+
+div.cardDetailLeft {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	width: 0px;
+}
+
+div.cardDetailRight {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	text-align: right;
+	width: 0px;
+}
+
+div.cardDetailRow {
+	flex-grow: 1;
+}
+
+span.businessName {
+	font-weight: bold;
+div.failState > h2 {
+	color: red;
+	font: bold 20px sans-serif;
 }

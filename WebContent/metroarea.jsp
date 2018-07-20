@@ -42,7 +42,7 @@
 		
 		htmlWriter.printOpenTag("div", "columnContainer");
 		for (int col = 1; col <= 3; col++) {
-			query = "SELECT category FROM category WHERE id = " + col; // 1 = restaurants, 2 = apartments, 3 = car dealers
+			query = "SELECT category FROM category WHERE id = " + col + ";"; // 1 = restaurants, 2 = apartments, 3 = car dealers
 			category = stmt.executeQuery(query);
 			category.next();
 			String categoryName = category.getString("category");
@@ -55,7 +55,8 @@
 			htmlWriter.print(categoryName);
 			htmlWriter.printCloseTag("h2");
 			htmlWriter.printCloseTag("div");
-			query = "SELECT business.id, business.name, COUNT(review.id) AS review_count, AVG(review.stars) AS review_stars"
+			query = "SELECT business.id, business.name, business.address, business.city, business.state, business.postal_code, "
+						+ "COUNT(review.id) AS review_count, AVG(review.stars) AS review_stars"
 					+ " FROM business"
 					+ " INNER JOIN postal_code ON business.postal_code = postal_code.postal_code"
 					+ " INNER JOIN review ON business.id = review.business_id"
@@ -64,12 +65,49 @@
 						+ " AND business.is_open = 1"
 					+ " GROUP BY business.id, review.stars"
 					+ " ORDER BY review_stars DESC, review_count DESC"
-					+ " LIMIT 5";
+					+ " LIMIT 5;";
 			businesses = stmt.executeQuery(query);
 			while (businesses.next()) {
+				htmlWriter.printOpenTag("div", "columnCard");
+				htmlWriter.printOpenTag("div", "cardDetailLeft");
+				
+				htmlWriter.printOpenTag("div", "cardDetailRow");
+				htmlWriter.printOpenTag("span", "businessName");
 				htmlWriter.println(businesses.getString("name"));
+				htmlWriter.printCloseTag("span");
+				htmlWriter.printCloseTag("div");
+				
+				htmlWriter.printOpenTag("div", "cardDetailRow");
+				htmlWriter.println(businesses.getString("address"));
+				htmlWriter.printBreak();
+				htmlWriter.println(businesses.getString("city") + ",");
+				htmlWriter.println(businesses.getString("state"));
+				htmlWriter.println(businesses.getString("postal_code"));
+				htmlWriter.printCloseTag("div");
+				
+				htmlWriter.printCloseTag("div");
+				htmlWriter.printOpenTag("div", "cardDetailRight");
+				
+				htmlWriter.printOpenTag("div", "cardDetailRow");
+				// round to 1 decimal place
+				int scale = (int) Math.pow(10, 1);
+				Double stars = (double) Math.round(businesses.getDouble("review_stars") * scale) / scale;
+				while (stars > 0) {
+					if (stars <= 0.2) {
+						
+					} else if (stars <= 0.7) {
+						htmlWriter.printImage("images/halfstar.jpg", "20px", "20px");
+					} else {
+						htmlWriter.printImage("images/star.jpg", "20px", "20px");
+					}
+					--stars;
+				}
+				htmlWriter.printBreak();
 				htmlWriter.println(businesses.getString("review_count") + " reviews");
-				htmlWriter.println(businesses.getString("review_stars") + " stars");
+				htmlWriter.printCloseTag("div");
+				
+				htmlWriter.printCloseTag("div");
+				htmlWriter.printCloseTag("div");
 			}
 			htmlWriter.printCloseTag("div");
 		}
