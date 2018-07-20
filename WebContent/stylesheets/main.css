@@ -150,6 +150,8 @@ div.cardDetailRow {
 
 span.businessName {
 	font-weight: bold;
+}
+
 div.failState > h2 {
 	color: red;
 	font: bold 20px sans-serif;
