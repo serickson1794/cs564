@@ -114,3 +114,8 @@ div.centerColumn {
 div.rightColumn {
 	margin-left: 5px;
 }
+
+div.failState > h2 {
+	color: red;
+	font: bold 20px sans-serif;
+}
