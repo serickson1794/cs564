@@ -82,6 +82,14 @@ public class HtmlWriter {
 		}
 	}
 	
+	public void printBreak() throws IOException {
+		try {
+			jspWriter.println("<br />");
+		} catch (IOException ioe) {
+			throw ioe;
+		}
+	}
+	
 	public void print(String text) throws IOException {
 		try {
 			jspWriter.print(text);
