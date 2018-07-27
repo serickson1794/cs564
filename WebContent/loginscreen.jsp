@@ -31,7 +31,7 @@
             <button id="Log in" type="submit" value="Log in"> <span>Log in</span> </button>
         </div>
     </form>
-    <button onclick="window.location.href='signup.jsp'" > sign up </button>
+    <button onclick="window.location.href='signup.jsp'" > Sign up </button>
     </div>
 </body>
 </html>

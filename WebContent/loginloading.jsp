@@ -31,9 +31,18 @@
 		response.sendRedirect("loginscreen.jsp?fail=1");
 	}
 	String name = nameQuery.getString("name");
-	//TODO make cookie here
+	//Add Cookie
+	Cookie nameCookie = new Cookie("yelp_name",name);
+	Cookie IDCookie = new Cookie("yelp_ID",id);
+	
+	nameCookie.setMaxAge(-1);
+	IDCookie.setMaxAge(-1);
+	
+	response.addCookie(nameCookie);
+	response.addCookie(IDCookie);
 	
 	response.sendRedirect("index.jsp");
+	
 	} catch (Exception se) {
 		//response.sendRedirect("error.jsp");
 		out.print(se.getMessage());
