@@ -16,22 +16,23 @@
 		<span class="headerTitleRight">reviews</span>
     </div>
     <div class="body">
-    <%if (request.getParameter("fail")=="1"){
+
+    <form class="login" action="loginloading.jsp" method="POST">
+    	<%if (request.getParameter("fail")=="1"){
             	HtmlWriter htmlWriter = new HtmlWriter(out);
             	htmlWriter.printOpenTag("div", "failState");
     			htmlWriter.printOpenTag("h2");
     			htmlWriter.print("Login Failed");
     			htmlWriter.printCloseTag("h2");
     			htmlWriter.printCloseTag("div");	
-            }%>
-    <form action="loginloading.jsp" method="POST">
+        }%>
         <div id="body">
             <input id="id" name="id" placeholder="User Name" required="required" type="text" /><br />
             <input id="pw" name="pw" placeholder="Password" required="required" type="password" /><br />
             <button id="Log in" type="submit" value="Log in"> <span>Log in</span> </button>
         </div>
-    </form>
     <button onclick="window.location.href='signup.jsp'" > Sign up </button>
+    </form>
     </div>
 </body>
 </html>
