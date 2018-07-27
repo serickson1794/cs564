@@ -9,22 +9,24 @@
     <meta charset="utf-8" />
     <title>Sign up</title>
     <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <form action="action_page.php">
-        <div id="body">
-            <!--content-->
-            <h1 id="title"> Sign Up for Help </h1>
-            <input id="name" placeholder="Name" required="required" type="text" /><br />
-            <input id="userName" placeholder="User Name" required="required" type="text" /><br />
-            <input id="password" placeholder="Password" required="required" type="password" /><br />
-            <input id="passwordConfirm" placeholder="Confirm Password" required="required" type="password" /> <br />
-            <button id="signupButton" type="submit" value="Sign Up"> <span>Sign Up</span> </button>
-        </div>
-    </form>
-    <footer>
-        <!--footer-->
-        Copyright &copy;2018 Help Inc.
-    </footer>
+    <div class="row">
+    	<div class="column" style="background-color:#aaa;">
+    			<p>hello</p>
+    	</div>
+    	<div class="column" style="background-color:#ccc;">
+    		<form>
+    			<span class="fa fa-star checked"></span>
+				<span class="fa fa-star checked"></span>
+				<span class="fa fa-star checked"></span>
+				<span class="fa fa-star"></span>
+				<span class="fa fa-star"></span>
+				<textarea id="review" name="review" placeholder="Enter your review here." style="height:200px"></textarea>
+				<input type="submit" value="Submit">
+    		</form>
+    	</div>
+    </div>
 </body>
 </html>
