@@ -18,7 +18,8 @@
     <div class="body">
 
     <form class="login" action="loginloading.jsp" method="POST">
-    	<%if (request.getParameter("fail")=="1"){
+    	<%
+    	if (request.getParameter("fail") != null){
             	HtmlWriter htmlWriter = new HtmlWriter(out);
             	htmlWriter.printOpenTag("div", "failState");
     			htmlWriter.printOpenTag("h2");
