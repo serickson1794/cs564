@@ -30,8 +30,8 @@
 		String metroAreaId = request.getParameter("id");
 		String query = "SELECT name from metro_area WHERE id = " + metroAreaId;
 		metroArea = stmt.executeQuery(query);
-		metroArea.first();
-		String metroAreaName = metroArea.getString("name");
+		String metroAreaName = "";
+		if (metroArea.first()) metroAreaName = metroArea.getString("name");
 		
 		HtmlWriter htmlWriter = new HtmlWriter(out);
 		htmlWriter.printOpenTag("div", "pageTitle");
@@ -44,8 +44,8 @@
 		for (int col = 1; col <= 3; col++) {
 			query = "SELECT category FROM category WHERE id = " + col + ";"; // 1 = restaurants, 2 = apartments, 3 = car dealers
 			category = stmt.executeQuery(query);
-			category.next();
-			String categoryName = category.getString("category");
+			String categoryName = "";
+			if (category.first()) categoryName = category.getString("category");
 			
 			if (col == 1) htmlWriter.printOpenTag("div", "column leftColumn");
 			else if (col == 2) htmlWriter.printOpenTag("div", "column centerColumn");
@@ -91,8 +91,9 @@
 				htmlWriter.printOpenTag("div", "cardDetailRow");
 				// round to 1 decimal place
 				int scale = (int) Math.pow(10, 1);
-				Double stars = (double) Math.round(businesses.getDouble("review_stars") * scale) / scale;
+				Double stars = businesses.getDouble("review_stars");
 				while (stars > 0) {
+					stars = (double) Math.round(stars * scale) / scale;
 					if (stars <= 0.2) {
 						
 					} else if (stars <= 0.7) {
@@ -100,7 +101,7 @@
 					} else {
 						htmlWriter.printImage("images/star.jpg", "20px", "20px");
 					}
-					--stars;
+					stars = stars - 1.0;
 				}
 				htmlWriter.printBreak();
 				htmlWriter.println(businesses.getString("review_count") + " reviews");
@@ -109,6 +110,24 @@
 				htmlWriter.printCloseTag("div");
 				htmlWriter.printCloseTag("div");
 			}
+			htmlWriter.printCloseTag("div");
+		}
+		htmlWriter.printCloseTag("div");
+		
+		htmlWriter.printOpenTag("div", "columnContainer");
+		for (int col = 1; col <= 3; col++) {
+			if (col == 1) htmlWriter.printOpenTag("div", "column leftColumn");
+			else if (col == 2) htmlWriter.printOpenTag("div", "column centerColumn");
+			else if (col == 3) htmlWriter.printOpenTag("div", "column rightColumn");
+			htmlWriter.printOpenTag("div", "columnCard");
+			htmlWriter.printOpenTag("div", "cardDetailLeft");
+			htmlWriter.printOpenTag("div", "cardDetailRowCentered");
+			htmlWriter.printOpenLink("metrocatarea.jsp?id=" + metroAreaId + "&category=" + col);
+			htmlWriter.println("View All");
+			htmlWriter.printCloseLink();
+			htmlWriter.printCloseTag("div");
+			htmlWriter.printCloseTag("div");
+			htmlWriter.printCloseTag("div");
 			htmlWriter.printCloseTag("div");
 		}
 		htmlWriter.printCloseTag("div");

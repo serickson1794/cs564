@@ -1,48 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*" %>
 <%@ page import="writers.HtmlWriter" %>
-<%@ page import="database.MySqlConnection" %>
-<%
-    if(null!=request.getAttribute("errorMessage"))
-    {
-    	out.println(request.getAttribute("errorMessage"));
-    }
-%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Sign up</title>
-    <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Business Reviews</title>
+
+<link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
+
+<script>
+function validatePassword() {
+	if (document.getElementById("password1").value != document.getElementById("password2").value) {
+		document.getElementById("error").innerHTML = "Passwords do not match.";
+		return false;
+	} else {
+		document.getElementById("error").innerHTML = "";
+		return true;
+	}
+}
+</script>
 </head>
 <body>
-    	<%
-    	if (request.getParameter("fail") != null){
-            	HtmlWriter htmlWriter = new HtmlWriter(out);
-            	htmlWriter.printOpenTag("div", "failState");
-    			htmlWriter.printOpenTag("h2");
-    			htmlWriter.print("User id already taken. Please select a unique user id.");
-    			htmlWriter.printCloseTag("h2");
-    			htmlWriter.printCloseTag("div");	
-        }%>
-    	<form action="signup_loading.jsp" class="login" method="post">
-        	<div id="body">
-            	<!--content-->
-            	<h1 id="title"> Sign Up for Help </h1>
-            	<input name="userName" placeholder="User name" required="required" type="text" /><br />
-            	<input name="userId" placeholder="User ID" required="required" type="text" /><br />
-            	<input name="password" placeholder="Password" required="required" type="password" /><br />
-            	<input name="passwordConfirm" placeholder="Confirm Password" required="required" type="password" /> <br />
-            	<button name="signupButton" type="submit" value="Sign Up"> <span>Sign Up</span> </button>
-            </div>
-    	</form>
-    <footer>
-        <!--footer-->
-        Copyright &copy;2018 Help Inc.
-    </footer>
-    
-    <!--check that password and passwordConfirm are the same; if not jump back to signup.jsp-->
-    
+<div class="header">
+	<span class="headerTitleLeft">business</span>
+	<span class="headerTitleRight">reviews</span>
+</div>
+<div class="body">
+	<div class="pageTitle">
+		<h1>Create Account</h1>
+	</div>
+	<form method="post" action="signupaction.jsp" onsubmit="return validatePassword();">
+		<input type="text" name="fullname" placeholder="Full name" required="required" />
+		<input type="text" name="username" placeholder="Username" required="required" />
+		<input type="password" id="password1" name="password" placeholder="Password" required="required" />
+		<input type="password" id="password2" placeholder="Confirm password" required="required" />
+		<input type="submit" value="Sign up" />
+		<span id="error" class="error">
+		<%
+		if (request.getParameter("error") != null && request.getParameter("error").equals("1")) {
+			HtmlWriter htmlWriter = new HtmlWriter(out);
+			htmlWriter.println("An account with that username already exists.");
+		}
+		%>
+		</span>
+	</form>
+</div>
 </body>
 </html>
