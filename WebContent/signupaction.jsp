@@ -20,21 +20,21 @@
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet user = null;
+	
 	try {
-		String username = request.getParameter("username");
-		String fullName = request.getParameter("fullname");
-		String password1 = request.getParameter("password1");
-		String password2 = request.getParameter("password2");
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
-		
-		user = stmt.executeQuery("SELECT id FROM user WHERE id = " + username + ";");
-		if (!user.first()) {
+		String username = request.getParameter("username");
+		user = stmt.executeQuery("SELECT id FROM user WHERE id = '" + username + "';");
+		if (user.first()) {
 			if (user != null) user.close();
 			if (stmt != null) stmt.close();
 			if (conn != null) conn.close();
 			response.sendRedirect("signup.jsp?error=1");
 		} else {
+			String fullName = request.getParameter("fullname");
+			String password1 = request.getParameter("password1");
+			String password2 = request.getParameter("password2");
 			out.println(fullName);
 		}
 	} catch (ClassNotFoundException cnfe) {
