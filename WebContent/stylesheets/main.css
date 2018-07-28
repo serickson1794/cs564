@@ -81,6 +81,10 @@ div.pageTitle, div.columnTitle {
 	flex-grow: 2;
 }
 
+div.columnTitle {
+	max-height: 55px;
+}
+
 div.pageTitle > h1 {
 	color: teal;
 	font: bold 24px sans-serif;
