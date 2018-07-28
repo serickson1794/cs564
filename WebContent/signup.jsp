@@ -3,34 +3,26 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="writers.HtmlWriter" %>
 <%@ page import="database.MySqlConnection" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Sign up</title>
-    <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Business Reviews</title>
+
+<link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
 </head>
 <body>
-    	<form action="action_page.jsp" class="login" method="post">
-        	<div id="body">
-            	<!--content-->
-            	<h1 id="title"> Sign Up for Help </h1>
-            	<input name="name" placeholder="Name" required="required" type="text" /><br />
-            	<input name="userName" placeholder="User Name" required="required" type="text" /><br />
-            	<input name="password" placeholder="Password" required="required" type="password" /><br />
-            	<input name="passwordConfirm" placeholder="Confirm Password" required="required" type="password" /> <br />
-            	<button name="signupButton" type="submit" value="Sign Up"> <span>Sign Up</span> </button>
-            </div>
-    	</form>
-    <footer>
-        <!--footer-->
-        Copyright &copy;2018 Help Inc.
-    </footer>
-    
-    <!--check if username taken; if so jump back to signup.jsp-->
-  
-    <!--check that password and passwordConfirm are the same; if not jump back to signup.jsp-->
-    
-    
+<div class="header">
+	<span class="headerTitleLeft">business</span>
+	<span class="headerTitleRight">reviews</span>
+</div>
+<div class="body">
+	<form method="post" action="signupaction.jsp">
+		<input type="text" name="username" placeholder="Username" />
+		<input type="text" name="name" placeholder="Full name" />
+		<input type="password" name="password1" placeholder="Password" />
+		<input type="password" name="password2" placeholder="Confirm password" />
+	</form>
+</div>
 </body>
 </html>

@@ -17,7 +17,7 @@
     </div>
     <div class="body">
 
-    <form class="login" action="loginloading.jsp" method="POST">
+    <form class="login" action="loginaction.jsp" method="POST">
     	<%
     	if (request.getParameter("fail") != null){
             	HtmlWriter htmlWriter = new HtmlWriter(out);
