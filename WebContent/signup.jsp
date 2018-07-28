@@ -33,12 +33,12 @@ function validatePassword() {
 	<form method="post" action="signupaction.jsp" onsubmit="return validatePassword();">
 		<input type="text" name="fullname" placeholder="Full name" required="required" />
 		<input type="text" name="username" placeholder="Username" required="required" />
-		<input type="password" id="password1" name="password1" placeholder="Password" required="required" />
-		<input type="password" id="password2" name="password2" placeholder="Confirm password" required="required" />
+		<input type="password" id="password1" name="password" placeholder="Password" required="required" />
+		<input type="password" id="password2" placeholder="Confirm password" required="required" />
 		<input type="submit" value="Sign up" />
 		<span id="error" class="error">
 		<%
-		if (request.getParameter("error") != null) {
+		if (request.getParameter("error") != null && request.getParameter("error").equals("1")) {
 			HtmlWriter htmlWriter = new HtmlWriter(out);
 			htmlWriter.println("An account with that username already exists.");
 		}

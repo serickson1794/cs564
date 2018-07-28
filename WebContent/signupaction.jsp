@@ -33,9 +33,14 @@
 			response.sendRedirect("signup.jsp?error=1");
 		} else {
 			String fullName = request.getParameter("fullname");
-			String password1 = request.getParameter("password1");
-			String password2 = request.getParameter("password2");
-			out.println(fullName);
+			String password = request.getParameter("password");
+			
+			String insert = "INSERT INTO user(id, name, password) "
+				+ "VALUES ('" + username + "', '" + fullName + "', '" + password + "');";
+				
+			stmt.executeUpdate(insert);
+				
+			response.sendRedirect("index.jsp");
 		}
 	} catch (ClassNotFoundException cnfe) {
 		response.sendRedirect("error.jsp");
