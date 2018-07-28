@@ -20,17 +20,14 @@
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet user = null;
-	
+	String redirectUrl = null;
 	try {
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
 		String username = request.getParameter("username");
 		user = stmt.executeQuery("SELECT id FROM user WHERE id = '" + username + "';");
 		if (user.first()) {
-			if (user != null) user.close();
-			if (stmt != null) stmt.close();
-			if (conn != null) conn.close();
-			response.sendRedirect("signup.jsp?error=1");
+			redirectUrl = "signup.jsp?error=1";
 		} else {
 			String fullName = request.getParameter("fullname");
 			String password = request.getParameter("password");
@@ -40,16 +37,17 @@
 				
 			stmt.executeUpdate(insert);
 				
-			response.sendRedirect("index.jsp");
+			redirectUrl = "index.jsp";
 		}
 	} catch (ClassNotFoundException cnfe) {
-		response.sendRedirect("error.jsp");
+		redirectUrl = "error.jsp";
 	} catch (SQLException se) {
-		response.sendRedirect("error.jsp");
+		redirectUrl = "error.jsp";
 	} finally {
 		if (user != null) user.close();
 		if (stmt != null) stmt.close();
 		if (conn != null) conn.close();
+		if (redirectUrl != null) response.sendRedirect(redirectUrl);
 	}
 	%>
 </div>

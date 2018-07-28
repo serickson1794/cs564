@@ -1,38 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*" %>
 <%@ page import="writers.HtmlWriter" %>
-<%@ page import="database.MySqlConnection" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login Screen</title>
+<title>Business Reviews</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
 </head>
 <body>
-	<div class="header">
-		<span class="headerTitleLeft">business</span>
-		<span class="headerTitleRight">reviews</span>
-    </div>
-    <div class="body">
-
-    <form class="login" action="loginaction.jsp" method="POST">
+<div class="header">
+	<span class="headerTitleLeft">business</span>
+	<span class="headerTitleRight">reviews</span>
+</div>
+<div class="body">
+	<div class="pageTitle">
+		<h1>Log In</h1>
+	</div>
+    <form method="post" action="loginaction.jsp">
+    	<input type="text" name="username" placeholder="Username" required="required" />
+        <input type="password" name="password" placeholder="Password" required="required" />
+        <input type="submit" value="Log in" />
+   		<div class="signUpLink">
+   			<a href="signup.jsp">Don't have an account?</a>
+   		</div>
     	<%
-    	if (request.getParameter("fail") != null){
-            	HtmlWriter htmlWriter = new HtmlWriter(out);
-            	htmlWriter.printOpenTag("div", "failState");
-    			htmlWriter.printOpenTag("h2");
-    			htmlWriter.print("Login Failed");
-    			htmlWriter.printCloseTag("h2");
-    			htmlWriter.printCloseTag("div");	
-        }%>
-        <div id="body">
-            <input id="id" name="id" placeholder="User Name" required="required" type="text" /><br />
-            <input id="pw" name="pw" placeholder="Password" required="required" type="password" /><br />
-            <button id="Log in" type="submit" value="Log in"> <span>Log in</span> </button>
-        </div>
-    <button onclick="window.location.href='signup.jsp'" > Sign up </button>
+		if (request.getParameter("error") != null && request.getParameter("error").equals("1")) {
+			HtmlWriter htmlWriter = new HtmlWriter(out);
+			htmlWriter.printOpenTag("span", "error");
+			htmlWriter.println("Invalid username and password combination.");
+			htmlWriter.printCloseTag("span");
+		}
+		%>
     </form>
     </div>
 </body>
