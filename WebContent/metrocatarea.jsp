@@ -30,14 +30,14 @@
 		String metroAreaId = request.getParameter("id");
 		String query = "SELECT name from metro_area WHERE id = " + metroAreaId;
 		metroArea = stmt.executeQuery(query);
-		metroArea.first();
-		String metroAreaName = metroArea.getString("name");
+		String metroAreaName = "";
+		if (metroArea.first()) metroAreaName = metroArea.getString("name");
 		
-		String metroAreaCatId= request.getParameter("cat");
-		query = "SELECT category FROM category WHERE id = " + metroAreaCatId + ";"; // 1 = restaurants, 2 = apartments, 3 = car dealers
+		String categoryId = request.getParameter("category");
+		query = "SELECT category FROM category WHERE id = " + categoryId + ";"; // 1 = restaurants, 2 = apartments, 3 = car dealers
 		category = stmt.executeQuery(query);
-		category.next();
-		String categoryName = category.getString("category");
+		String categoryName = "";
+		if (category.first()) categoryName = category.getString("category");
 		
 		HtmlWriter htmlWriter = new HtmlWriter(out);
 		htmlWriter.printOpenTag("div", "pageTitle");
@@ -59,7 +59,7 @@
 					+ " INNER JOIN postal_code ON business.postal_code = postal_code.postal_code"
 					+ " INNER JOIN review ON business.id = review.business_id"
 					+ " WHERE postal_code.metro_area_id = " + metroAreaId
-						+ " AND business.category_id = " + metroAreaCatId
+						+ " AND business.category_id = " + categoryId
 						+ " AND business.is_open = 1"
 					+ " GROUP BY business.id, review.stars"
 					+ " ORDER BY review_stars DESC, review_count DESC"
@@ -89,8 +89,9 @@
 				htmlWriter.printOpenTag("div", "cardDetailRow");
 				// round to 1 decimal place
 				int scale = (int) Math.pow(10, 1);
-				Double stars = (double) Math.round(businesses.getDouble("review_stars") * scale) / scale;
+				Double stars = businesses.getDouble("review_stars");
 				while (stars > 0) {
+					stars = (double) Math.round(stars * scale) / scale;
 					if (stars <= 0.2) {
 						
 					} else if (stars <= 0.7) {
@@ -98,7 +99,7 @@
 					} else {
 						htmlWriter.printImage("images/star.jpg", "20px", "20px");
 					}
-					--stars;
+					stars = stars - 1.0;
 				}
 				htmlWriter.printBreak();
 				htmlWriter.println(businesses.getString("review_count") + " reviews");

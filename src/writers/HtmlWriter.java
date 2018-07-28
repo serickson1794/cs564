@@ -49,6 +49,17 @@ public class HtmlWriter {
 		}
 	}
 	
+	public void printOpenLink(String href) throws IOException {
+		try {
+			String str = "<a";
+			str += tagAttribute("href", href);
+			str += ">";
+			jspWriter.println(str);
+		} catch (IOException ioe) {
+			throw ioe;
+		}
+	}
+	
 	public void printOpenLink(String linkClass, String href) throws IOException {
 		try {
 			String str = "<a";

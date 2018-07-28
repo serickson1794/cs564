@@ -148,6 +148,11 @@ div.cardDetailRow {
 	flex-grow: 1;
 }
 
+div.cardDetailRowCentered {
+	flex-grow: 1;
+	text-align: center;
+}
+
 span.businessName {
 	font-weight: bold;
 }
