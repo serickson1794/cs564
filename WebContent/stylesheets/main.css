@@ -162,33 +162,27 @@ div.failState > h2 {
 	font: bold 20px sans-serif;
 }
 
-input {
+form {
+	width: 350px;
+	margin: auto;
+	text-align: center;
+}
+
+input, select, textarea {
 	border-radius: 5px;
-}
-
-input[type=text], input[type=password] {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0px;
-	display: inline-block;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
-}
-
-input[type=text], select, textarea {
 	width: 100%;
 	padding: 12px 20px;
 	border: 1px solid #ccc;
 	box-sizing: border-box;
+	margin-bottom: 10px;
 }
 
 input[type=submit] {
 	background-color: teal;
 	color: white;
-	padding: 12px 20px;
 	border: none;
-	border-radius: 4px;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 button {
@@ -200,4 +194,9 @@ button {
 	cursor: pointer;
 	width: 100%;
 	border-radius: 5px;
+}
+
+span.error {
+	color: red;
+	font: bold 14px sans-serif;
 }

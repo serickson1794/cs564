@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.sql.*" %>
 <%@ page import="writers.HtmlWriter" %>
-<%@ page import="database.MySqlConnection" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,6 +8,18 @@
 <title>Business Reviews</title>
 
 <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
+
+<script>
+function validatePassword() {
+	if (document.getElementById("password1").value != document.getElementById("password2").value) {
+		document.getElementById("error").innerHTML = "Passwords do not match.";
+		return false;
+	} else {
+		document.getElementById("error").innerHTML = "";
+		return true;
+	}
+}
+</script>
 </head>
 <body>
 <div class="header">
@@ -17,11 +27,23 @@
 	<span class="headerTitleRight">reviews</span>
 </div>
 <div class="body">
-	<form method="post" action="signupaction.jsp">
-		<input type="text" name="username" placeholder="Username" />
-		<input type="text" name="name" placeholder="Full name" />
-		<input type="password" name="password1" placeholder="Password" />
-		<input type="password" name="password2" placeholder="Confirm password" />
+	<div class="pageTitle">
+		<h1>Create Account</h1>
+	</div>
+	<form method="post" action="signupaction.jsp" onsubmit="return validatePassword();">
+		<input type="text" name="fullname" placeholder="Full name" required="required" />
+		<input type="text" name="username" placeholder="Username" required="required" />
+		<input type="password" id="password1" name="password1" placeholder="Password" required="required" />
+		<input type="password" id="password2" name="password2" placeholder="Confirm password" required="required" />
+		<input type="submit" value="Sign up" />
+		<span id="error" class="error">
+		<%
+		if (request.getParameter("error") != null) {
+			HtmlWriter htmlWriter = new HtmlWriter(out);
+			htmlWriter.println("An account with that username already exists.");
+		}
+		%>
+		</span>
 	</form>
 </div>
 </body>
