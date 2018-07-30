@@ -92,6 +92,7 @@
 				+ " ORDER BY review.date DESC;";
 		reviews = stmt.executeQuery(query);
 		while (reviews.next()) {
+			htmlWriter.printOpenTag("div", "columnCardWrapper");
 			htmlWriter.printOpenTag("div", "columnCard");
    			htmlWriter.printOpenTag("div", "cardDetailLeft");
    		
@@ -99,10 +100,6 @@
     		htmlWriter.printOpenTag("span", "reviewUserName");
     		htmlWriter.println(reviews.getString("name"));
     		htmlWriter.printCloseTag("span");
-    		htmlWriter.printCloseTag("div");
-    		
-    		htmlWriter.printOpenTag("div", "cardDetailRow");
-    		htmlWriter.println(reviews.getString("text"));
     		htmlWriter.printCloseTag("div");
     		
     		htmlWriter.printCloseTag("div");
@@ -113,8 +110,14 @@
     		htmlWriter.printBreak();
     		htmlWriter.printDate(reviews.getString("date"));
     		htmlWriter.printCloseTag("div");
+ 
+    		htmlWriter.printCloseTag("div");
+    		htmlWriter.printCloseTag("div");
+    		
+    		htmlWriter.printOpenTag("div", "columnCard");
     		
     		htmlWriter.printOpenTag("div", "cardDetailRow");
+    		htmlWriter.println(reviews.getString("text"));
     		htmlWriter.printCloseTag("div");
     		
     		htmlWriter.printCloseTag("div");

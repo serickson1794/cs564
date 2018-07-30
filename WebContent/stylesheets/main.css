@@ -136,6 +136,13 @@ div.rightColumn {
 	margin-left: 5px;
 }
 
+div.columnCardWrapper {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	margin-top: 10px;
+}
+
 div.columnCard {
 	display: flex;
 	flex-direction: row;
@@ -145,6 +152,10 @@ div.columnCard {
 	padding: 10px 10px 10px 10px;
 	margin-top: 10px;
 	font: 16px sans-serif;
+}
+
+div.columnCardWrapper > div.columnCard {
+	margin-top: 0px;
 }
 
 div.columnCard > .row{
@@ -256,7 +267,7 @@ display in reverse orders */
 .rating > label{
 		display: inline-block;
 		overflow: hidden;
-		width: 5em;
+		width: 2em;
 		white-space: nowrap;
 } 
 
@@ -265,6 +276,8 @@ display a grey, unfilled star */
 .rating > input[type=radio] + label:before{
 			content: '\2606';
     		color: #888;
+    		width: 20px;
+    		height: 20px;
 } 
 
 /* when a radio button is selected, change the before 
@@ -274,6 +287,8 @@ preceding sibling elements to a gold, filled star */
 .rating > input[type=radio]:checked ~ label:before{
 			content: '\2605';
     		color: goldenrod;
+    		width: 20px;
+    		height: 20px;
 		}
 	}
 }
