@@ -48,7 +48,7 @@
 		    			</div>
 					</div>
 		    	</div>
-		    	<%
+		    	<%-- <%
  				Connection conn = null;
 				Statement stmt = null;
 				ResultSet business = null;
@@ -122,7 +122,7 @@
 					if (stmt != null) stmt.close();
 					if (conn != null) conn.close();
 				}
-				%> 
+				%>  --%>
 				<div class="columnTitle">
     				<h2>Reviews</h2>
     			</div>
@@ -138,8 +138,14 @@
 		   					<img src="images/star.jpg" width="20 px" height="20px">
 		   					<img src="images/star.jpg" width="20 px" height="20px">
     					</div>
-   						<div class="cardDetailRow">
+    					<div class="cardDetailRow">
     						Review text goes here. There may be quite a lot of text, so it is good to have a long sample hence all this typing I am doing. 
+    				
+    					</div>
+    				</div>
+    				<div class="cardDetailRight">
+    					<div class="cardDetailRow">
+    						7/29/2018
     					</div>
     				</div>
     			</div>
@@ -161,6 +167,7 @@
 				</div>
 				<textarea id="review" name="review" placeholder="Enter your review here." style="height:200px"></textarea>
 				<input type="submit" value="Submit">
+				<input type="submit" value="Remove">
     		</form>
     	</div>
     </div>

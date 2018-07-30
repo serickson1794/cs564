@@ -147,6 +147,10 @@ div.columnCard {
 	font: 16px sans-serif;
 }
 
+div.columnCard > .row{
+	display: block;
+}
+
 div.cardDetailLeft {
 	display: flex;
 	flex-direction: column;
@@ -160,6 +164,14 @@ div.cardDetailRight {
 	flex-grow: 1;
 	text-align: right;
 	width: 0px;
+}
+
+div.cardDetailCenter {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+	text-align: left;
+	width: 250px;
 }
 
 div.cardDetailRow {
