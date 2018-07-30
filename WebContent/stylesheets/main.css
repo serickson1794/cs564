@@ -198,11 +198,6 @@ span.businessName, span.reviewUserName {
 	font-weight: bold;
 }
 
-div.failState > h2 {
-	color: red;
-	font: bold 20px sans-serif;
-}
-
 form {
 	width: 350px;
 	margin: auto;
@@ -244,6 +239,10 @@ span.error {
 
 div.signUpLink {
 	margin-bottom: 10px;
+}
+
+div.linkDiv {
+	cursor: pointer;
 }
 
 /* reverse the order of the stars so the sibling

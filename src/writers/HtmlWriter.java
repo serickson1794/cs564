@@ -46,8 +46,7 @@ public class HtmlWriter {
 	public void printLinkDiv(String divClass, String onClickUrl) throws IOException {
 		try {
 			String str = "<div";
-			str += tagAttribute("class", divClass);
-			str += tagAttribute("style", "cursor: pointer;");
+			str += tagAttribute("class", divClass + " linkDiv");
 			str += tagAttribute("onclick", "window.location = '" + onClickUrl + "'");
 			str += ">";
 			jspWriter.println(str);

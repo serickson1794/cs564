@@ -12,11 +12,9 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
 </head>
 <body>
-<div class="header">
-	<a href="home.jsp">
+<div class="header linkDiv" onclick="window.location='home.jsp'">
 	<span class="headerTitleLeft">business</span>
 	<span class="headerTitleRight">reviews</span>
-	</a>
 </div>
 <div class="body">
 	<%
