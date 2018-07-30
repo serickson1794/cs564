@@ -24,6 +24,16 @@
 	Statement stmt = null;
 	ResultSet metroAreas = null;
 	try {
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("businessReviewsUsername")) {
+				username = cookie.getValue();
+				break;
+			}
+		}
+		if (username == null) response.sendRedirect("index.jsp");
+		
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
 		metroAreas = stmt.executeQuery("SELECT * FROM metro_area ORDER BY name;");

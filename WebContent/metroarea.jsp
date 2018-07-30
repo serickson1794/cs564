@@ -26,6 +26,16 @@
 	ResultSet businesses = null;
 	ResultSet category = null;
 	try {
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("businessReviewsUsername")) {
+				username = cookie.getValue();
+				break;
+			}
+		}
+		if (username == null) response.sendRedirect("index.jsp");
+		
 		String metroAreaId = request.getParameter("id");
 		if (metroAreaId == null) response.sendRedirect("home.jsp");
 		

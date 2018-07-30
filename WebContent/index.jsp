@@ -25,6 +25,16 @@
    			<a href="signup.jsp">Don't have an account?</a>
    		</div>
     	<%
+    	String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("businessReviewsUsername")) {
+				username = cookie.getValue();
+				break;
+			}
+		}
+		if (username != null) response.sendRedirect("home.jsp");
+    	
 		if (request.getParameter("error") != null && request.getParameter("error").equals("1")) {
 			HtmlWriter htmlWriter = new HtmlWriter(out);
 			htmlWriter.printOpenTag("span", "error");
