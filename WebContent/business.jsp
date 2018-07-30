@@ -3,8 +3,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="writers.HtmlWriter" %>
 <%@ page import="database.MySqlConnection" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html>
 
