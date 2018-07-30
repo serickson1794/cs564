@@ -24,10 +24,11 @@
 	ResultSet businesses = null;
 	ResultSet category = null;
 	try {
+		String metroAreaId = request.getParameter("id");
+		if (metroAreaId == null) response.sendRedirect("home.jsp");
+		
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
-		
-		String metroAreaId = request.getParameter("id");
 		String query = "SELECT name from metro_area WHERE id = " + metroAreaId;
 		metroArea = stmt.executeQuery(query);
 		String metroAreaName = "";

@@ -24,16 +24,17 @@
 	ResultSet businesses = null;
 	ResultSet category = null;
 	try {
+		String metroAreaId = request.getParameter("id");
+		String categoryId = request.getParameter("category");
+		if (metroAreaId == null || categoryId == null) response.sendRedirect("home.jsp");
+		
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
-		
-		String metroAreaId = request.getParameter("id");
 		String query = "SELECT name from metro_area WHERE id = " + metroAreaId;
 		metroArea = stmt.executeQuery(query);
 		String metroAreaName = "";
 		if (metroArea.first()) metroAreaName = metroArea.getString("name");
 		
-		String categoryId = request.getParameter("category");
 		query = "SELECT category FROM category WHERE id = " + categoryId + ";"; // 1 = restaurants, 2 = apartments, 3 = car dealers
 		category = stmt.executeQuery(query);
 		String categoryName = "";

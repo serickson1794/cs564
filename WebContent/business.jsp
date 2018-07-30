@@ -24,6 +24,7 @@
 	ResultSet reviews = null;
 	try {
 		String businessId = request.getParameter("id");
+		if (businessId == null) response.sendRedirect("home.jsp");
 		
 		conn = MySqlConnection.getConnection();
 		stmt = conn.createStatement();
