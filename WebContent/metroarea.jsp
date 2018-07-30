@@ -63,7 +63,7 @@
 					+ " WHERE postal_code.metro_area_id = " + metroAreaId
 						+ " AND business.category_id = " + col
 						+ " AND business.is_open = 1"
-					+ " GROUP BY business.id, review.stars"
+					+ " GROUP BY business.id"
 					+ " ORDER BY review_stars DESC, review_count DESC"
 					+ " LIMIT 5;";
 			businesses = stmt.executeQuery(query);
