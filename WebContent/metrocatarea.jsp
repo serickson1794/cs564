@@ -13,8 +13,10 @@
 </head>
 <body>
 <div class="header">
+	<a href="home.jsp">
 	<span class="headerTitleLeft">business</span>
 	<span class="headerTitleRight">reviews</span>
+	</a>
 </div>
 <div class="body">
 	<%
