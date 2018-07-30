@@ -139,7 +139,7 @@
 		htmlWriter.printCloseTag("div");
 		
 		htmlWriter.printOpenTag("div", "rightPane");
-    	htmlWriter.printOpenTag("form");
+    	htmlWriter.printOpenForm("reviewaction.jsp?bid=" + businessId);
     	
     	htmlWriter.printOpenTag("div", "rating");
     	for (int i = 5; i > 0; i--) {
@@ -152,8 +152,8 @@
 		
 		htmlWriter.printOpenTextArea("reviewText", "text", "Write a review...");
 		htmlWriter.printCloseTag("textarea");
-		htmlWriter.printSubmit("save", "Save");
-		htmlWriter.printSubmit("remove", "Remove");
+		htmlWriter.printSubmit("submit", "Save");
+		htmlWriter.printSubmit("submit", "Remove");
    		htmlWriter.printCloseTag("form");
    		
     	htmlWriter.printCloseTag("div");

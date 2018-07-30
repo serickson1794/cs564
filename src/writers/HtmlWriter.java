@@ -115,6 +115,18 @@ public class HtmlWriter {
 		}
 	}
 	
+	public void printOpenForm(String action) throws IOException {
+		try {
+			String str = "<form";
+			str += tagAttribute("method", "POST");
+			str += tagAttribute("action", action);
+			str += ">";
+			jspWriter.println(str);
+		} catch (IOException ioe) {
+			throw ioe;
+		}
+	}
+	
 	public void printRadio(String id, String name, String value) throws IOException {
 		try {
 			String str = "<input";
