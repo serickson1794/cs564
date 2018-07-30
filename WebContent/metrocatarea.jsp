@@ -54,7 +54,7 @@
 			htmlWriter.printCloseTag("h2");
 			htmlWriter.printCloseTag("div");
 			query = "SELECT business.id, business.name, business.address, business.city, business.state, business.postal_code, "
-						+ "COUNT(review.id) AS review_count, AVG(review.stars) AS review_stars"
+						+ "COUNT(*) AS review_count, AVG(review.stars) AS review_stars"
 					+ " FROM business"
 					+ " INNER JOIN postal_code ON business.postal_code = postal_code.postal_code"
 					+ " INNER JOIN review ON business.id = review.business_id"
