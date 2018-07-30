@@ -66,7 +66,7 @@
 					+ " LIMIT 1000;";
 			businesses = stmt.executeQuery(query);
 			while (businesses.next()) {
-				htmlWriter.printOpenTag("div", "columnCard");
+				htmlWriter.printLinkDiv("columnCard", "business.jsp?id=" + businesses.getString("id"));
 				htmlWriter.printOpenTag("div", "cardDetailLeft");
 				
 				htmlWriter.printOpenTag("div", "cardDetailRow");
@@ -88,19 +88,7 @@
 				
 				htmlWriter.printOpenTag("div", "cardDetailRow");
 				// round to 1 decimal place
-				int scale = (int) Math.pow(10, 1);
-				Double stars = businesses.getDouble("review_stars");
-				while (stars > 0) {
-					stars = (double) Math.round(stars * scale) / scale;
-					if (stars <= 0.2) {
-						
-					} else if (stars <= 0.7) {
-						htmlWriter.printImage("images/halfstar.jpg", "20px", "20px");
-					} else {
-						htmlWriter.printImage("images/star.jpg", "20px", "20px");
-					}
-					stars = stars - 1.0;
-				}
+				htmlWriter.printStars(businesses.getDouble("review_stars"));
 				htmlWriter.printBreak();
 				htmlWriter.println(businesses.getString("review_count") + " reviews");
 				htmlWriter.printCloseTag("div");

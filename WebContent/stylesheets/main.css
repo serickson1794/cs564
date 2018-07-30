@@ -183,7 +183,7 @@ div.cardDetailRowCentered {
 	text-align: center;
 }
 
-span.businessName {
+span.businessName, span.reviewUserName {
 	font-weight: bold;
 }
 
@@ -220,6 +220,11 @@ input[type=submit] {
 	width: 100px;
 }
 
+textarea.reviewText {
+	height: 200px;
+	font-family: sans-serif;
+}
+
 span.error {
 	color: red;
 	font: bold 14px sans-serif;
@@ -251,7 +256,7 @@ display in reverse orders */
 .rating > label{
 		display: inline-block;
 		overflow: hidden;
-		width: 2em;
+		width: 5em;
 		white-space: nowrap;
 } 
 
