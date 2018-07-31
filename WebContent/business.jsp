@@ -139,7 +139,7 @@
 		htmlWriter.printCloseTag("div");
 		
 		htmlWriter.printOpenTag("div", "rightPane");
-    	htmlWriter.printOpenForm("reviewaction.jsp?bid=" + businessId);
+    	htmlWriter.printOpenForm("reviewaction.jsp?bid=" + businessId + "&uid=" + username);
     	
     	htmlWriter.printOpenTag("div", "rating");
     	for (int i = 5; i > 0; i--) {
