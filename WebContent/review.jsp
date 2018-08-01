@@ -18,7 +18,7 @@
 	</div>
 	<div class="body">
 	    <div class="pageTitle">
-			<h1>Reviews</h1>
+			<h1>Business Reviews</h1>
 		</div>
 		<div class="leftPane">
 			<div class="columnContainer">
@@ -122,7 +122,7 @@
 					if (stmt != null) stmt.close();
 					if (conn != null) conn.close();
 				}
-				%>  --%>
+				%> --%>
 				<div class="columnTitle">
     				<h2>Reviews</h2>
     			</div>

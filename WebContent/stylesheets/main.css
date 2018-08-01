@@ -107,6 +107,11 @@ div.leftPane{
 	width: 47.5%;
 }
 
+div.wholePane{
+	float: left;
+	width: 95%;
+}
+
 div.leftPane > div.columnContainer{
 	display: block;
 }
