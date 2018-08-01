@@ -23,15 +23,33 @@
 			String username = request.getParameter("uid");
 			String submitType = request.getParameter("submit");
 			if (submitType.equals("Save")) {
-				String now = (new Date()).toString() + " 00:00:00";
+				Date today = new Date();
+				
+				int month = today.getMonth();
+				String monthStr;
+				if (month < 10) monthStr = "0" + month;
+				else monthStr = Integer.toString(month);
+				
+				int date = today.getDate();
+				String dateStr;
+				if (date < 10) dateStr = "0" + date;
+				else dateStr = Integer.toString(date);
+				
+				String now = (today.getYear() + 1900) + "-" + monthStr + "-" + dateStr + " 00:00:00";
 				String stars = request.getParameter("rating");
 				String reviewText = request.getParameter("text");
 				
-				String query = "INSERT INTO review(business_id, user_id, stars, date, text)"
+				String update = "INSERT INTO review(business_id, user_id, stars, date, text)"
 						+ " VALUES ('" + businessId + "', '" + username + "', '" + stars + "', '" + now + "', '" + reviewText + "')"
 						+ " ON DUPLICATE KEY UPDATE stars = '" + stars + "', date = '" + now + "', text = '" + reviewText + "';"; 
+						
+				stmt.executeUpdate(update);
 			} else if (submitType.equals("Remove")) {
-				
+				String update = "DELETE FROM review"
+						+ " WHERE business_id = '" + businessId + "'"
+						+ " AND user_id = '" + username + "';";
+						
+				stmt.executeUpdate(update);
 			}
 			redirectUrl = "business.jsp?id=" + businessId;
 		} catch (SQLException se) {
