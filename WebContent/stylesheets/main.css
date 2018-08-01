@@ -10,18 +10,40 @@ div.header {
 	height: 30px;
 	padding: 10px 10px 10px 10px;
 	background-color: whitesmoke;
+	display: flex;
+	flex-direction: row;
 }
 
-div.header > span.headerTitleLeft {
-	color: teal;
-	font: bold 30px sans-serif;
+div.headerTitle {
+	display: flex;
+	flex-direction: row;
 	flex-grow: 2;
 }
 
-div.header > span.headerTitleRight {
+div.logoutLink {
+	flex-grow: 1;
+	text-align: right;
+}
+
+div.logoutLink > a, div.logoutLink > a:visited {
+	color: teal;
+	font: 16px sans-serif;
+}
+
+div.logoutLink > a:hover {
 	color: black;
+}
+
+div.header > div.headerTitle > span.headerTitleLeft {
+	color: teal;
 	font: bold 30px sans-serif;
 	flex-grow: 1;
+}
+
+div.header > div.headerTitle > span.headerTitleRight {
+	color: black;
+	font: bold 30px sans-serif;
+	flex-grow: 200;
 }
 
 div.body {
@@ -102,21 +124,21 @@ div.columnContainer {
 	flex-grow: 1;
 }
 
-div.leftPane{
+div.leftPane {
 	float: left;
 	width: 47.5%;
 }
 
-div.wholePane{
+div.wholePane {
 	float: left;
 	width: 95%;
 }
 
-div.leftPane > div.columnContainer{
+div.leftPane > div.columnContainer {
 	display: block;
 }
 
-div.rightPane{
+div.rightPane {
 	float: right;
 	width: 47.5%;
 }
@@ -304,6 +326,10 @@ preceding sibling elements to a gold, filled star */
 }
 
 a {
+	color: teal;
+}
+
+a:visited {
 	color: teal;
 }
 

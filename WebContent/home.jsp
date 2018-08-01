@@ -13,8 +13,13 @@
 </head>
 <body>
 <div class="header">
-	<span class="headerTitleLeft">business</span>
-	<span class="headerTitleRight">reviews</span>
+	<div class="headerTitle">
+		<span class="headerTitleLeft">business</span>
+		<span class="headerTitleRight">reviews</span>
+	</div>
+	<div class="logoutLink">
+		<a href="logoutaction.jsp">Logout</a>
+	</div>
 </div>
 <div class="body">
 	<%
