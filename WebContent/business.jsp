@@ -143,11 +143,12 @@
 			htmlWriter.printOpenTag("div", "rightPane");
 			htmlWriter.printOpenForm("reviewaction.jsp?bid=" + businessId);
 
-			query = "SELECT text, stars FROM review WHERE user_id = '" + username + "';";
+			query = "SELECT text, stars FROM review WHERE business_id = '" + businessId + "' AND user_id = '" + username + "';";
 			usersreview = stmt.executeQuery(query);
 			String userStar = null;
 			String userText = null;
-			if (usersreview.first()) {
+			boolean userHasReview = usersreview.first();
+			if (userHasReview) {
 				userText = usersreview.getString("text");
 				userStar = usersreview.getString("stars");
 			}
@@ -166,8 +167,8 @@
 				htmlWriter.println(userText);
 			}
 			htmlWriter.printCloseTag("textarea");
-			htmlWriter.printSubmit("submit", "Save");
-			htmlWriter.printSubmit("submit", "Remove");
+			htmlWriter.printSubmit("submit", "Save", true);
+			htmlWriter.printSubmit("submit", "Remove", userHasReview);
 			htmlWriter.printCloseTag("form");
 
 			htmlWriter.printCloseTag("div");

@@ -213,7 +213,7 @@ div.rightPane > form{
 	width: 90%;
 }
 
-input, input, select, textarea {
+input, select, textarea {
 	border-radius: 5px;
 	padding: 12px 20px;
 	border: 1px solid #ccc;
@@ -229,6 +229,11 @@ input[type=submit] {
 	cursor: pointer;
 	font-weight: bold;
 	width: 100px;
+}
+
+input[type=submit][disabled=disabled] {
+	background-color: gray;
+	cursor: auto;
 }
 
 textarea.reviewText {

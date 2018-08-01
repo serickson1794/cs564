@@ -165,12 +165,13 @@ public class HtmlWriter {
 		}
 	}
 	
-	public void printSubmit(String name, String value) throws IOException {
+	public void printSubmit(String name, String value, boolean enabled) throws IOException {
 		try {
 			String str = "<input";
 			str += tagAttribute("type", "submit");
 			str += tagAttribute("name", name);
 			str += tagAttribute("value", value);
+			if (!enabled) str += tagAttribute("disabled", "disabled");
 			str += " />";
 			jspWriter.println(str);
 		} catch (IOException ioe) {
