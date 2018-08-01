@@ -16,11 +16,22 @@
 		ResultSet user = null;
 		String redirectUrl = null;
 		try {
+			String username = null;
+    		Cookie[] cookies = request.getCookies();
+    		if (cookies != null) {
+    			for (Cookie cookie : cookies) {
+    				if (cookie.getName().equals("businessReviewsUsername")) {
+    					username = cookie.getValue();
+    					break;
+    				}
+    			}
+    		}
+    		if (username == null) response.sendRedirect("index.jsp");
+			
 			conn = MySqlConnection.getConnection();
 			stmt = conn.createStatement();
 			
 			String businessId = request.getParameter("bid");
-			String username = request.getParameter("uid");
 			String submitType = request.getParameter("submit");
 			if (submitType.equals("Save")) {
 				Date today = new Date();

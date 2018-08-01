@@ -141,7 +141,7 @@
 			htmlWriter.printCloseTag("div");
 
 			htmlWriter.printOpenTag("div", "rightPane");
-			htmlWriter.printOpenForm("reviewaction.jsp?bid=" + businessId + "&uid=" + username);
+			htmlWriter.printOpenForm("reviewaction.jsp?bid=" + businessId);
 
 			query = "SELECT text, stars FROM review WHERE user_id = '" + username + "';";
 			usersreview = stmt.executeQuery(query);
