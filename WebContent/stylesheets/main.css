@@ -273,6 +273,7 @@ display in reverse orders */
 		overflow: hidden;
 		width: 2em;
 		white-space: nowrap;
+		font-size: 25px;
 } 
 
 /* before each unselected radio button label element, 
