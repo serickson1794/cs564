@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
 </head>
 <body>
-<div class="header">
+<div class="header linkDiv" onclick="window.location='home.jsp'">
 	<span class="headerTitleLeft">business</span>
 	<span class="headerTitleRight">reviews</span>
 </div>
@@ -24,16 +24,27 @@
 	ResultSet businesses = null;
 	ResultSet category = null;
 	try {
-		conn = MySqlConnection.getConnection();
-		stmt = conn.createStatement();
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("businessReviewsUsername")) {
+				username = cookie.getValue();
+				break;
+			}
+		}
+		if (username == null) response.sendRedirect("index.jsp");
 		
 		String metroAreaId = request.getParameter("id");
+		String categoryId = request.getParameter("category");
+		if (metroAreaId == null || categoryId == null) response.sendRedirect("home.jsp");
+		
+		conn = MySqlConnection.getConnection();
+		stmt = conn.createStatement();
 		String query = "SELECT name from metro_area WHERE id = " + metroAreaId;
 		metroArea = stmt.executeQuery(query);
 		String metroAreaName = "";
 		if (metroArea.first()) metroAreaName = metroArea.getString("name");
 		
-		String categoryId = request.getParameter("category");
 		query = "SELECT category FROM category WHERE id = " + categoryId + ";"; // 1 = restaurants, 2 = apartments, 3 = car dealers
 		category = stmt.executeQuery(query);
 		String categoryName = "";
@@ -61,12 +72,12 @@
 					+ " WHERE postal_code.metro_area_id = " + metroAreaId
 						+ " AND business.category_id = " + categoryId
 						+ " AND business.is_open = 1"
-					+ " GROUP BY business.id, review.stars"
+					+ " GROUP BY business.id"
 					+ " ORDER BY review_stars DESC, review_count DESC"
 					+ " LIMIT 1000;";
 			businesses = stmt.executeQuery(query);
 			while (businesses.next()) {
-				htmlWriter.printOpenTag("div", "columnCard");
+				htmlWriter.printLinkDiv("columnCard", "business.jsp?id=" + businesses.getString("id"));
 				htmlWriter.printOpenTag("div", "cardDetailLeft");
 				
 				htmlWriter.printOpenTag("div", "cardDetailRow");
@@ -88,19 +99,7 @@
 				
 				htmlWriter.printOpenTag("div", "cardDetailRow");
 				// round to 1 decimal place
-				int scale = (int) Math.pow(10, 1);
-				Double stars = businesses.getDouble("review_stars");
-				while (stars > 0) {
-					stars = (double) Math.round(stars * scale) / scale;
-					if (stars <= 0.2) {
-						
-					} else if (stars <= 0.7) {
-						htmlWriter.printImage("images/halfstar.jpg", "20px", "20px");
-					} else {
-						htmlWriter.printImage("images/star.jpg", "20px", "20px");
-					}
-					stars = stars - 1.0;
-				}
+				htmlWriter.printStars(businesses.getDouble("review_stars"));
 				htmlWriter.printBreak();
 				htmlWriter.println(businesses.getString("review_count") + " reviews");
 				htmlWriter.printCloseTag("div");

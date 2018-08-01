@@ -141,6 +141,13 @@ div.rightColumn {
 	margin-left: 5px;
 }
 
+div.columnCardWrapper {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	margin-top: 10px;
+}
+
 div.columnCard {
 	display: flex;
 	flex-direction: row;
@@ -150,6 +157,10 @@ div.columnCard {
 	padding: 10px 10px 10px 10px;
 	margin-top: 10px;
 	font: 16px sans-serif;
+}
+
+div.columnCardWrapper > div.columnCard {
+	margin-top: 0px;
 }
 
 div.columnCard > .row{
@@ -188,13 +199,8 @@ div.cardDetailRowCentered {
 	text-align: center;
 }
 
-span.businessName {
+span.businessName, span.reviewUserName {
 	font-weight: bold;
-}
-
-div.failState > h2 {
-	color: red;
-	font: bold 20px sans-serif;
 }
 
 form {
@@ -225,6 +231,11 @@ input[type=submit] {
 	width: 100px;
 }
 
+textarea.reviewText {
+	height: 200px;
+	font-family: sans-serif;
+}
+
 span.error {
 	color: red;
 	font: bold 14px sans-serif;
@@ -233,6 +244,10 @@ span.error {
 
 div.signUpLink {
 	margin-bottom: 10px;
+}
+
+div.linkDiv {
+	cursor: pointer;
 }
 
 /* reverse the order of the stars so the sibling
@@ -265,6 +280,8 @@ display a grey, unfilled star */
 .rating > input[type=radio] + label:before{
 			content: '\2606';
     		color: #888;
+    		width: 20px;
+    		height: 20px;
 } 
 
 /* when a radio button is selected, change the before 
@@ -274,6 +291,8 @@ preceding sibling elements to a gold, filled star */
 .rating > input[type=radio]:checked ~ label:before{
 			content: '\2605';
     		color: goldenrod;
+    		width: 20px;
+    		height: 20px;
 		}
 	}
 }
