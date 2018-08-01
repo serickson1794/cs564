@@ -144,17 +144,24 @@
     	
     	query = "SELECT text, stars FROM review WHERE user_id = '" + username + "';";
 		usersreview = stmt.executeQuery(query);
-		String userStar = null;
+		int userStar = 0;
 		String userText = null;
 		if (usersreview.first()) {
 			userText = usersreview.getString("text");
-			userStar = usersreview.getString("stars");
+			userStar = Integer.parseInt(usersreview.getString("stars"));
 		}
+		userStar=3;
 		
     	htmlWriter.printOpenTag("div", "rating");
-    	for (int i = 5; i > 0; i--) {
+    	for (int i = 5; i > userStar; i--){
     		String id = "star" + i;
-    		htmlWriter.printRadio(id, "rating", Integer.toString(i));//Integer.toString((6 - i)));
+    		htmlWriter.printRadio(id, "rating", "0");//Integer.toString((6 - i)));
+    		htmlWriter.printOpenLabel(id);
+    		htmlWriter.printCloseTag("label");
+    	}
+    	for (int j = userStar; j > 0; j--) {
+    		String id = "star" + j;
+    		htmlWriter.printRadio(id, "rating", "1");//Integer.toString((6 - i)));
     		htmlWriter.printOpenLabel(id);
     		htmlWriter.printCloseTag("label");
     	}	

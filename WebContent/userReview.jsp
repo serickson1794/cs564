@@ -20,7 +20,7 @@
 		<%
 		Connection conn = null;
 		Statement stmt = null;
-		ResultSet user = null;
+		/* ResultSet user = null; */
 		ResultSet businesses = null;
 		try {
 			String username = null;
@@ -34,6 +34,8 @@
 			
 			if(username == null) response.sendRedirect("index.jsp");
 			
+			conn = MySqlConnection.getConnection();
+			stmt = conn.createStatement();
 			String query ="SELECT id FROM user WHERE id = '" + username + "';";
 			user = stmt.executeQuery(query);
 			
@@ -46,6 +48,8 @@
 			htmlWriter.printCloseTag("h1");
 			htmlWriter.printCloseTag("div");
 			
+			conn = MySqlConnection.getConnection();
+			stmt = conn.createStatement();
 			String query = "SELECT business.id, business.name, business.address, business.city, business.state, business.postal_code, "
 					+ "review.stars "
 					+ "FROM business "
@@ -86,8 +90,8 @@
 				htmlWriter.printCloseTag("div");
 			}
 			htmlWriter.printCloseTag("div");
-		/* } catch (ClassNotFoundException cnfe) {
-			response.sendRedirect("error.jsp"); */
+		 } catch (ClassNotFoundException cnfe) {
+			response.sendRedirect("error.jsp"); 
 		} catch (SQLException se) {
 			response.sendRedirect("error.jsp");
 		} finally {
