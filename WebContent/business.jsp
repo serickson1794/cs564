@@ -22,6 +22,7 @@
 	Statement stmt = null;
 	ResultSet business = null;
 	ResultSet reviews = null;
+	ResultSet usersreview = null;
 	try {
 		String username = null;
 		Cookie[] cookies = request.getCookies();
@@ -141,6 +142,15 @@
 		htmlWriter.printOpenTag("div", "rightPane");
     	htmlWriter.printOpenForm("reviewaction.jsp?bid=" + businessId + "&uid=" + username);
     	
+    	query = "SELECT text, stars FROM review WHERE user_id = '" + username + "';";
+		usersreview = stmt.executeQuery(query);
+		String userStar = null;
+		String userText = null;
+		if (usersreview.first()) {
+			userText = usersreview.getString("text");
+			userStar = usersreview.getString("stars");
+		}
+		
     	htmlWriter.printOpenTag("div", "rating");
     	for (int i = 5; i > 0; i--) {
     		String id = "star" + i;
@@ -151,6 +161,9 @@
 		htmlWriter.printCloseTag("div");
 		
 		htmlWriter.printOpenTextArea("reviewText", "text", "Write a review...");
+		if (userText != null){
+			htmlWriter.println(userText);
+		}
 		htmlWriter.printCloseTag("textarea");
 		htmlWriter.printSubmit("submit", "Save");
 		htmlWriter.printSubmit("submit", "Remove");
