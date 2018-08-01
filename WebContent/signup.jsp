@@ -38,20 +38,23 @@ function validatePassword() {
 		<input type="submit" value="Sign up" />
 		<span id="error" class="error">
 		<%
-		String username = null;
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("businessReviewsUsername")) {
-				username = cookie.getValue();
-				break;
+			String username = null;
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("businessReviewsUsername")) {
+						username = cookie.getValue();
+						break;
+					}
+				}
 			}
-		}
-		if (username != null) response.sendRedirect("home.jsp");
-		
-		if (request.getParameter("error") != null && request.getParameter("error").equals("1")) {
-			HtmlWriter htmlWriter = new HtmlWriter(out);
-			htmlWriter.println("An account with that username already exists.");
-		}
+			if (username != null)
+				response.sendRedirect("home.jsp");
+
+			if (request.getParameter("error") != null && request.getParameter("error").equals("1")) {
+				HtmlWriter htmlWriter = new HtmlWriter(out);
+				htmlWriter.println("An account with that username already exists.");
+			}
 		%>
 		</span>
 	</form>
