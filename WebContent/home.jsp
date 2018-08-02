@@ -13,55 +13,66 @@
 </head>
 <body>
 <div class="header">
-	<span class="headerTitleLeft">business</span>
-	<span class="headerTitleRight">reviews</span>
+	<div class="headerTitle">
+		<span class="headerTitleLeft">business</span>
+		<span class="headerTitleRight">reviews</span>
+	</div>
+	<div class="logoutLink">
+		<a href="logoutaction.jsp">Logout</a>
+	</div>
 </div>
 <div class="body">
 	<%
-	Connection conn = null;
-	Statement stmt = null;
-	ResultSet metroAreas = null;
-	try {
-		String username = null;
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("businessReviewsUsername")) {
-				username = cookie.getValue();
-				break;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet metroAreas = null;
+		try {
+			String username = null;
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("businessReviewsUsername")) {
+						username = cookie.getValue();
+						break;
+					}
+				}
 			}
+			if (username == null)
+				response.sendRedirect("index.jsp");
+
+			conn = MySqlConnection.getConnection();
+			stmt = conn.createStatement();
+			metroAreas = stmt.executeQuery("SELECT * FROM metro_area ORDER BY name;");
+
+			HtmlWriter htmlWriter = new HtmlWriter(out);
+			while (metroAreas.next()) {
+				String metroAreaId = metroAreas.getString("id");
+				String metroAreaName = metroAreas.getString("name");
+				String metroAreaImageUrl = metroAreas.getString("image_url");
+
+				htmlWriter.printOpenTag("div", "metroAreaCard");
+				htmlWriter.printOpenTag("div", "metroAreaCardTitle");
+				htmlWriter.println(metroAreaName);
+				htmlWriter.printCloseTag("div");
+				String imageStyle = "background-image: url('" + metroAreaImageUrl + "');";
+				htmlWriter.printOpenTag("div", "metroAreaCardInner", imageStyle);
+				htmlWriter.printOpenLink("metroAreaLink", "metroarea.jsp?id=" + metroAreaId);
+				htmlWriter.printCloseLink();
+				htmlWriter.printCloseTag("div");
+				htmlWriter.printCloseTag("div");
+			}
+		} catch (ClassNotFoundException cnfe) {
+			response.sendRedirect("error.jsp");
+		} catch (SQLException se) {
+			response.sendRedirect("error.jsp");
+		} finally {
+			if (metroAreas != null)
+				metroAreas.close();
+			if (stmt != null)
+				stmt.close();
+			if (conn != null)
+				conn.close();
 		}
-		if (username == null) response.sendRedirect("index.jsp");
-		
-		conn = MySqlConnection.getConnection();
-		stmt = conn.createStatement();
-		metroAreas = stmt.executeQuery("SELECT * FROM metro_area ORDER BY name;");
-		
-		HtmlWriter htmlWriter = new HtmlWriter(out);
-		while (metroAreas.next()) {
-			String metroAreaId = metroAreas.getString("id");
-			String metroAreaName = metroAreas.getString("name");
-			String metroAreaImageUrl = metroAreas.getString("image_url");
-			
-			htmlWriter.printOpenTag("div", "metroAreaCard");
-			htmlWriter.printOpenTag("div", "metroAreaCardTitle");
-			htmlWriter.println(metroAreaName);
-			htmlWriter.printCloseTag("div");
-			String imageStyle = "background-image: url('" + metroAreaImageUrl + "');";
-			htmlWriter.printOpenTag("div", "metroAreaCardInner", imageStyle);
-			htmlWriter.printOpenLink("metroAreaLink", "metroarea.jsp?id=" + metroAreaId);
-			htmlWriter.printCloseLink();
-			htmlWriter.printCloseTag("div");
-			htmlWriter.printCloseTag("div");
-		}
-	} catch (ClassNotFoundException cnfe) {
-		response.sendRedirect("error.jsp");
-	} catch (SQLException se) {
-		response.sendRedirect("error.jsp");
-	} finally {
-		if (metroAreas != null) metroAreas.close();
-		if (stmt != null) stmt.close();
-		if (conn != null) conn.close();
-	}
 	%>
 </div>
 </body>

@@ -10,8 +10,12 @@
 </head>
 <body>
 <div class="header">
-	<span class="headerTitleLeft">business</span>
-	<span class="headerTitleRight">reviews</span>
+	<div class="headerTitle">
+		<span class="headerTitleLeft">business</span>
+		<span class="headerTitleRight">reviews</span>
+	</div>
+	<div class="logoutLink">
+	</div>
 </div>
 <div class="body">
 	<div class="pageTitle">
