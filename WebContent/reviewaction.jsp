@@ -36,7 +36,7 @@
 			if (submitType.equals("Save")) {
 				Date today = new Date();
 				
-				int month = today.getMonth();
+				int month = today.getMonth() + 1;
 				String monthStr;
 				if (month < 10) monthStr = "0" + month;
 				else monthStr = Integer.toString(month);
