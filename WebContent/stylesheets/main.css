@@ -25,7 +25,7 @@ div.logoutLink {
 	text-align: right;
 }
 
-div.logoutLink > a, div.logoutLink > a:visited {
+div.logoutLink > a:link, div.logoutLink > a:visited {
 	color: teal;
 	font: 16px sans-serif;
 }
@@ -325,11 +325,7 @@ preceding sibling elements to a gold, filled star */
 	}
 }
 
-a {
-	color: teal;
-}
-
-a:visited {
+a:link, a:visited {
 	color: teal;
 }
 
