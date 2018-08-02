@@ -161,8 +161,8 @@
 			htmlWriter.printOpenTag("div", "rating");
 			for (int i = 5; i > 0; i--) {
 				String id = "star" + i;
-				if(i != userStar) htmlWriter.printRadio(id, "rating", Integer.toString(i), "");//Integer.toString((6 - i)));
-				else htmlWriter.printRadio(id, "rating", Integer.toString(i), "checked");
+				if (i != userStar) htmlWriter.printRadio(id, "rating", Integer.toString(i), false);
+				else htmlWriter.printRadio(id, "rating", Integer.toString(i), true);
 				htmlWriter.printOpenLabel(id);
 				htmlWriter.printCloseTag("label");
 			}
