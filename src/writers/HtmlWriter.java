@@ -127,7 +127,7 @@ public class HtmlWriter {
 		}
 	}
 	
-	public void printRadio(String id, String name, String value, boolean checked) throws IOException {
+	public void printRadio(String id, String name, String value, boolean checked, boolean required) throws IOException {
 		try {
 			String str = "<input";
 			str += tagAttribute("type", "radio");
@@ -135,6 +135,7 @@ public class HtmlWriter {
 			str += tagAttribute("name", name);
 			str += tagAttribute("value", value);
 			if (checked) str += tagAttribute("checked", "checked");
+			if (required) str += tagAttribute("required", "required");
 			str += " />";
 			jspWriter.println(str);
 		} catch (IOException ioe) {
@@ -166,12 +167,13 @@ public class HtmlWriter {
 		}
 	}
 	
-	public void printOpenTextArea(String textAreaClass, String name, String placeholder) throws IOException {
+	public void printOpenTextArea(String textAreaClass, String name, String placeholder, boolean required) throws IOException {
 		try {
 			String str = "<textarea";
 			str += tagAttribute("class", textAreaClass);
 			str += tagAttribute("name", name);
 			str += tagAttribute("placeholder", placeholder);
+			if (required) str += tagAttribute("required", "required");
 		    str += ">";
 		    jspWriter.println(str);
 		} catch (IOException ioe) {

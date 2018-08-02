@@ -186,14 +186,14 @@
 			htmlWriter.printOpenTag("div", "rating");
 			for (int i = 5; i > 0; i--) {
 				String id = "star" + i;
-				if (i != userStar) htmlWriter.printRadio(id, "rating", Integer.toString(i), false);
-				else htmlWriter.printRadio(id, "rating", Integer.toString(i), true);
+				if (i != userStar) htmlWriter.printRadio(id, "rating", Integer.toString(i), false, true);
+				else htmlWriter.printRadio(id, "rating", Integer.toString(i), true, true);
 				htmlWriter.printOpenLabel(id);
 				htmlWriter.printCloseTag("label");
 			}
 			htmlWriter.printCloseTag("div");
 
-			htmlWriter.printOpenTextArea("reviewText", "text", "Write a review...");
+			htmlWriter.printOpenTextArea("reviewText", "text", "Write a review...", true);
 			if (userText != null) {
 				htmlWriter.println(userText);
 			}
