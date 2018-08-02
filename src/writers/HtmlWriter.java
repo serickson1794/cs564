@@ -127,13 +127,14 @@ public class HtmlWriter {
 		}
 	}
 	
-	public void printRadio(String id, String name, String value) throws IOException {
+	public void printRadio(String id, String name, String value, String checked) throws IOException {
 		try {
 			String str = "<input";
 			str += tagAttribute("type", "radio");
 			str += tagAttribute("id", id);
 			str += tagAttribute("name", name);
 			str += tagAttribute("value", value);
+			if(checked == "checked") str += tagAttribute("checked", checked);
 			str += " />";
 			jspWriter.println(str);
 		} catch (IOException ioe) {

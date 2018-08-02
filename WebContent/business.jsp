@@ -150,18 +150,19 @@
 
 			query = "SELECT text, stars FROM review WHERE business_id = '" + businessId + "' AND user_id = '" + username + "';";
 			usersreview = stmt.executeQuery(query);
-			String userStar = null;
+			int userStar = 0;
 			String userText = null;
 			boolean userHasReview = usersreview.first();
 			if (userHasReview) {
 				userText = usersreview.getString("text");
-				userStar = usersreview.getString("stars");
+				userStar = Integer.parseInt(usersreview.getString("stars"));
 			}
 
 			htmlWriter.printOpenTag("div", "rating");
 			for (int i = 5; i > 0; i--) {
 				String id = "star" + i;
-				htmlWriter.printRadio(id, "rating", Integer.toString(i));//Integer.toString((6 - i)));
+				if(i != userStar) htmlWriter.printRadio(id, "rating", Integer.toString(i), "");//Integer.toString((6 - i)));
+				else htmlWriter.printRadio(id, "rating", Integer.toString(i), "checked");
 				htmlWriter.printOpenLabel(id);
 				htmlWriter.printCloseTag("label");
 			}
