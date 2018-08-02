@@ -321,15 +321,9 @@ preceding sibling elements to a gold, filled star */
     		color: goldenrod;
     		width: 20px;
     		height: 20px;
-		}
-	}
 }
 
-a:link {
-	color: teal;
-}
-
-a:visited {
+a:link, a:visited {
 	color: teal;
 }
 
