@@ -34,25 +34,13 @@
 			String businessId = request.getParameter("bid");
 			String submitType = request.getParameter("submit");
 			if (submitType.equals("Save")) {
-				Date today = new Date();
-				
-				int month = today.getMonth() + 1;
-				String monthStr;
-				if (month < 10) monthStr = "0" + month;
-				else monthStr = Integer.toString(month);
-				
-				int date = today.getDate();
-				String dateStr;
-				if (date < 10) dateStr = "0" + date;
-				else dateStr = Integer.toString(date);
-				
-				String now = (today.getYear() + 1900) + "-" + monthStr + "-" + dateStr + " 00:00:00";
+				String date = request.getParameter("date");
 				String stars = request.getParameter("rating");
 				String reviewText = request.getParameter("text");
 				
 				String update = "INSERT INTO review(business_id, user_id, stars, date, text)"
-						+ " VALUES ('" + businessId + "', '" + username + "', '" + stars + "', '" + now + "', '" + reviewText + "')"
-						+ " ON DUPLICATE KEY UPDATE stars = '" + stars + "', date = '" + now + "', text = '" + reviewText + "';"; 
+						+ " VALUES ('" + businessId + "', '" + username + "', '" + stars + "', '" + date + "', '" + reviewText + "')"
+						+ " ON DUPLICATE KEY UPDATE stars = '" + stars + "', date = '" + date + "', text = '" + reviewText + "';"; 
 						
 				stmt.executeUpdate(update);
 			} else if (submitType.equals("Remove")) {

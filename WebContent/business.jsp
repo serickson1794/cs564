@@ -10,8 +10,33 @@
     <meta charset="utf-8" />
     <title>Business Reviews</title>
     <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="all" />
+    
+    <script type="text/javascript">
+    
+    function setDate() {
+    	var dateStr = "";
+    	var today = new Date();
+    	
+    	var year = today.getFullYear();
+    	dateStr += year;
+    	
+    	dateStr += "-";
+    	var month = today.getMonth() + 1;
+    	if (month < 10) dateStr += "0";
+    	dateStr += month;
+    	
+    	dateStr += "-";
+    	var day = today.getDate();
+    	if (day < 10) dateStr += "0";
+    	dateStr += day;
+    	
+    	dateStr += " 00:00:00";
+    	document.getElementById('date').value = dateStr;
+    }
+    
+    </script>
 </head>
-<body>
+<body onload="setDate();">
 	<div class="header linkDiv" onclick="window.location='home.jsp'">
 		<div class="headerTitle">
 			<span class="headerTitleLeft">business</span>
@@ -173,6 +198,7 @@
 				htmlWriter.println(userText);
 			}
 			htmlWriter.printCloseTag("textarea");
+			htmlWriter.printHidden("date", "date");
 			htmlWriter.printSubmit("submit", "Save", true);
 			htmlWriter.printSubmit("submit", "Remove", userHasReview);
 			htmlWriter.printCloseTag("form");

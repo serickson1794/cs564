@@ -142,6 +142,19 @@ public class HtmlWriter {
 		}
 	}
 	
+	public void printHidden(String id, String name) throws IOException {
+		try {
+			String str = "<input";
+			str += tagAttribute("type", "hidden");
+			str += tagAttribute("id", id);
+			str += tagAttribute("name", name);
+			str += " />";
+			jspWriter.println(str);
+		} catch (IOException ioe) {
+			throw ioe;
+		}
+	}
+	
 	public void printOpenLabel(String forInput) throws IOException {
 		try {
 			String str = "<label";
