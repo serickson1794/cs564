@@ -42,6 +42,21 @@
 			<span class="headerTitleLeft">business</span>
 			<span class="headerTitleRight">reviews</span>
 		</div>
+		<%
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("businessReviewsUsername")) {
+				username = cookie.getValue();
+				break;
+			}
+		}
+		
+		if(username == null) response.sendRedirect("index.jsp");
+		%>
+		<div class="logoutLink">
+			<a href="userReview.jsp">My Reviews</a>
+		</div>
 		<div class="logoutLink">
 			<a href="logoutaction.jsp">Logout</a>
 		</div>
@@ -54,19 +69,6 @@
 		ResultSet reviews = null;
 		ResultSet usersreview = null;
 		try {
-			String username = null;
-			Cookie[] cookies = request.getCookies();
-			if (cookies != null) {
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equals("businessReviewsUsername")) {
-						username = cookie.getValue();
-						break;
-					}
-				}
-			}
-			if (username == null)
-				response.sendRedirect("index.jsp");
-
 			String businessId = request.getParameter("id");
 			if (businessId == null)
 				response.sendRedirect("home.jsp");

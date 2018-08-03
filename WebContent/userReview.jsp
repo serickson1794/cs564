@@ -16,6 +16,21 @@
 		<div class="headerTitle">
 			<span class="headerTitleLeft">business</span>
 			<span class="headerTitleRight">reviews</span>
+		</div>	
+		<%
+		String username = null;
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("businessReviewsUsername")) {
+				username = cookie.getValue();
+				break;
+			}
+		}
+		
+		if(username == null) response.sendRedirect("index.jsp");
+		%>
+		<div class="logoutLink">
+			<a href="userReview.jsp">My Reviews</a>
 		</div>
 		<div class="logoutLink">
 			<a href="logoutaction.jsp">Logout</a>
@@ -25,45 +40,34 @@
 		<%
 		Connection conn = null;
 		Statement stmt = null;
-		/* ResultSet user = null; */
+		ResultSet user = null;
 		ResultSet businesses = null;
 		try {
-			String username = null;
-			/* Cookie[] cookies = request.getCookies();
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("businessReviewsUsername")) {
-					username = cookie.getValue();
-					break;
-				}
-			}
-			
-			if(username == null) response.sendRedirect("index.jsp");
 			
 			conn = MySqlConnection.getConnection();
 			stmt = conn.createStatement();
-			String query ="SELECT id FROM user WHERE id = '" + username + "';";
+			String query ="SELECT name FROM user WHERE id = '" + username + "';";
 			user = stmt.executeQuery(query);
 			
-			if (!user.first()) response.sendRedirect("index.jsp"); */
+			if (!user.first()) response.sendRedirect("index.jsp"); 
 			
 			HtmlWriter htmlWriter = new HtmlWriter(out);
 			htmlWriter.printOpenTag("div", "pageTitle");
 			htmlWriter.printOpenTag("h1");
-			htmlWriter.println(username + "'s Reviews");
+			htmlWriter.println(user.getString("name") + "'s Reviews");
 			htmlWriter.printCloseTag("h1");
 			htmlWriter.printCloseTag("div");
-			
-			conn = MySqlConnection.getConnection();
-			stmt = conn.createStatement();
-			String query = "SELECT business.id, business.name, business.address, business.city, business.state, business.postal_code, "
-					+ "review.stars "
+
+			query = "SELECT business.id, business.name, business.address, business.city, business.state, business.postal_code, "
+					+ "review.stars, review.text "
 					+ "FROM business "
 					+ "INNER JOIN postal_code ON business.postal_code = postal_code.postal_code "
 					+ "INNER JOIN review ON business.id=review.business_id "
-					+ "WHERE review.user_id='" + "-2tJ7A886B1OnuSwPXcFRQ" + "';";
+					+ "WHERE review.user_id='" + username + "';";
 
 			businesses = stmt.executeQuery(query);
 			while (businesses.next()) {
+				htmlWriter.printOpenTag("div", "columnCardWrapper");
 				htmlWriter.printLinkDiv("columnCard", "business.jsp?id=" + businesses.getString("id"));
 				htmlWriter.printOpenTag("div", "cardDetailLeft");
 				
@@ -86,11 +90,15 @@
 				
 				htmlWriter.printOpenTag("div", "cardDetailRow");
 				// round to 1 decimal place
-				htmlWriter.printStars(businesses.getDouble("review_stars"));
-				htmlWriter.printBreak();
-				htmlWriter.println(businesses.getString("review_count") + " reviews");
+				htmlWriter.printStars(businesses.getDouble("stars"));
 				htmlWriter.printCloseTag("div");
 				
+				htmlWriter.printCloseTag("div");
+				htmlWriter.printCloseTag("div");
+				htmlWriter.printLinkDiv("columnCard", "business.jsp?id=" + businesses.getString("id"));
+				htmlWriter.printOpenTag("div", "cardDetailRow");
+				htmlWriter.println(businesses.getString("text"));
+				htmlWriter.printCloseTag("div");
 				htmlWriter.printCloseTag("div");
 				htmlWriter.printCloseTag("div");
 			}
@@ -105,29 +113,6 @@
 			if (conn != null) conn.close();
 		}
     	%>
-<!-- 		<div class="columnCard">
-			<div class="cardDetailLeft">
-				<div class="cardDetailRow">
-					<span class="businessName">The Old Fashioned</span>
-				</div>
-				<div class="cardDetailRow">
-					<img src="images/star.jpg" width="20 px" height="20px">
-					<img src="images/star.jpg" width="20 px" height="20px">
-					<img src="images/star.jpg" width="20 px" height="20px">
-					<img src="images/star.jpg" width="20 px" height="20px">
-					<img src="images/star.jpg" width="20 px" height="20px">
-				</div>
-				<div class="cardDetailRow">
-					Review text goes here. There may be quite a lot of text, so it is good to have a long sample hence all this typing I am doing. 
-			
-				</div>
-			</div>
-			<div class="cardDetailRight">
-				<div class="cardDetailRow">
-					7/29/2018
-				</div>
-			</div>
-		</div> -->
 	</div>
 </body>
 </html>
